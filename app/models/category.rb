@@ -1,5 +1,5 @@
-class Subject < ApplicationRecord
-  belongs_to :category
+class Category < ApplicationRecord
+  has_many :subjects
 
   validates :name,
     presence: true,
