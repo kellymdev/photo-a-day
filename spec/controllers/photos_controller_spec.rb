@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PhotosController, type: :controller do
   let(:category) { Category.create!(name: 'Macro') }
   let(:subject) { category.subjects.create!(name: 'Ant') }
-  let(:photo) { Photo.create!(subject_id: subject.id, date: Date.yesterday, image_url: 'http://www.test.com/test.jpg', notes: 'Test') }
+  let!(:photo) { Photo.create!(subject_id: subject.id, date: Date.yesterday, image_url: 'http://www.test.com/test.jpg', notes: 'Test') }
 
   describe '#new' do
     it 'returns http status 200' do
@@ -91,6 +91,12 @@ RSpec.describe PhotosController, type: :controller do
           expect(photo.reload.date).to eq Date.yesterday
         end
       end
+    end
+  end
+
+  describe '#destroy' do
+    it 'deletes the photo' do
+      expect { delete :destroy, params: { id: photo.id } }.to change { Photo.count }.by -1
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PhotosController < ApplicationController
-  before_action :find_photo, only: [:show, :edit, :update]
+  before_action :find_photo, only: [:show, :edit, :update, :destroy]
   before_action :list_subjects, only: [:new, :edit]
 
   def new
@@ -32,6 +32,14 @@ class PhotosController < ApplicationController
       list_subjects
       render :edit, id: @photo.id
     end
+  end
+
+  def destroy
+    subject = @photo.subject
+
+    @photo.destroy
+
+    redirect_to subject_path(subject)
   end
 
   private
