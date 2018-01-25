@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PhotosController < ApplicationController
-  before_action :find_photo, only: [:show, :edit]
+  before_action :find_photo, only: [:show, :edit, :update]
   before_action :list_subjects, only: [:new, :edit]
 
   def new
@@ -23,6 +23,15 @@ class PhotosController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+    if @photo.update(photo_params)
+      redirect_to @photo
+    else
+      list_subjects
+      render :edit, id: @photo.id
+    end
   end
 
   private
