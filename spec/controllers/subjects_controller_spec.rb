@@ -28,4 +28,14 @@ RSpec.describe SubjectsController, type: :controller do
       end
     end
   end
+
+  describe '#show' do
+    let(:subject) { category.subjects.create!(name: 'Ant') }
+
+    it 'returns http status code 200' do
+      get :show, params: { id: subject.id }
+
+      expect(response.status).to eq 200
+    end
+  end
 end
