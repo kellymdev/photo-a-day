@@ -10,4 +10,4 @@
   <p><%= @photo.notes %></p>
 <% end %>
 
-<%= link_to('Edit Photo', edit_photo_path(@photo)) %>
+<p><%= link_to('Edit Photo', edit_photo_path(@photo)) %> | <%= link_to('Delete Photo', photo_path(@photo), data: { confirm: 'Are you sure?' }, method: :delete) %></p>

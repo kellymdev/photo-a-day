@@ -5,9 +5,19 @@
   <h3>Photos:</h3>
 
   <% @subject.photos.each do |photo| %>
-    <%= photo.date %> - <%= photo.notes %>
-    <%= image_tag(photo.image_url) %>
+    <p>
+      <%= link_to(photo.date, photo_path(photo)) %>
+
+      <% if photo.notes.present? %>
+         - <%= photo.notes %>
+      <% end %>
+    </p>
+
+    <% if photo.image_url.present? %>
+      <p><%= image_tag(photo.image_url) %></p>
+    <% end %>
   <% end %>
 <% end %>
 
-<%= link_to('Edit', edit_subject_path(@subject)) %>
+<p><%= link_to('Edit', edit_subject_path(@subject)) %> |
+<%= link_to('Delete', subject_path(@subject), data: { confirm: 'Are you sure?' }, method: :delete) %></p>

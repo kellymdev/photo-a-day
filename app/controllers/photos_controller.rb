@@ -37,7 +37,7 @@ class PhotosController < ApplicationController
   def destroy
     subject = @photo.subject
 
-    @photo.destroy
+    @photo.destroy!
 
     redirect_to subject_path(subject)
   end
