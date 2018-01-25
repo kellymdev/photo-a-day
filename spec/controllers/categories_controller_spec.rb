@@ -10,4 +10,12 @@ RSpec.describe CategoriesController, type: :controller do
       expect(response.status).to eq 200
     end
   end
+
+  describe '#show' do
+    it 'returns http status 200' do
+      get :show, params: { id: category.id }
+
+      expect(response.status).to eq 200
+    end
+  end
 end
