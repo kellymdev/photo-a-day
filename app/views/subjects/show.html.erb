@@ -1,0 +1,11 @@
+<h2><%= @subject.name %></h2>
+<p>Category: <%= @subject.category.name %></p>
+
+<% if @subject.photos.any? %>
+  <h3>Photos:</h3>
+
+  <% @subject.photos.each do |photo| %>
+    <%= photo.date %> - <%= photo.notes %>
+    <%= image_tag(photo.image_url) %>
+  <% end %>
+<% end %>
