@@ -1,0 +1,11 @@
+<p><%= link_to(@photo.subject.category.name, category_path(@photo.subject.category)) %> | <%= link_to(@photo.subject.name, subject_path(@photo.subject)) %></p>
+
+<p>Date taken: <%= @photo.date %></p>
+
+<% if @photo.image_url.present? %>
+  <%= image_tag(@photo.image_url, alt: @photo.subject.name) %>
+<% end %>
+
+<% if @photo.notes.present? %>
+  <p><%= @photo.notes %></p>
+<% end %>

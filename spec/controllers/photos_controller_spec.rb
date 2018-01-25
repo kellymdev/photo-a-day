@@ -39,4 +39,14 @@ RSpec.describe PhotosController, type: :controller do
       end
     end
   end
+
+  describe '#show' do
+    let(:photo) { Photo.create!(subject_id: subject.id, date: Date.today, image_url: 'http://www.test.com/test.jpg', notes: 'Test') }
+
+    it 'returns https status 200' do
+      get :show, params: { id: photo.id }
+
+      expect(response.status).to eq 200
+    end
+  end
 end
