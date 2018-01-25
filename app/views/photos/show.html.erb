@@ -9,3 +9,5 @@
 <% if @photo.notes.present? %>
   <p><%= @photo.notes %></p>
 <% end %>
+
+<%= link_to('Edit Photo', edit_photo_path(@photo)) %>

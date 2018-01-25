@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class PhotosController < ApplicationController
-  before_action :find_photo, only: [:show]
+  before_action :find_photo, only: [:show, :edit]
+  before_action :list_subjects, only: [:new, :edit]
 
   def new
-    @subjects = Subject.all.order(:name)
     @photo = Photo.new
   end
 
@@ -14,11 +14,15 @@ class PhotosController < ApplicationController
     if @photo.save
       redirect_to @photo
     else
+      list_subjects
       render :new
     end
   end
 
   def show
+  end
+
+  def edit
   end
 
   private
@@ -29,5 +33,9 @@ class PhotosController < ApplicationController
 
   def find_photo
     @photo = Photo.find(params[:id])
+  end
+
+  def list_subjects
+    @subjects = Subject.all.order(:name)
   end
 end

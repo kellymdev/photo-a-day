@@ -1,0 +1,11 @@
+<%= f.label :subject %>
+<%= f.collection_select(:subject_id, @subjects, :id, :name) %>
+
+<%= f.label :date %>
+<%= f.date_select :date %>
+
+<%= f.label :image_url %>
+<%= f.text_field :image_url %>
+
+<%= f.label :notes %>
+<%= f.text_area :notes %>

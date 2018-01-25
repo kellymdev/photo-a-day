@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe PhotosController, type: :controller do
   let(:category) { Category.create!(name: 'Macro') }
   let(:subject) { category.subjects.create!(name: 'Ant') }
+  let(:photo) { Photo.create!(subject_id: subject.id, date: Date.today, image_url: 'http://www.test.com/test.jpg', notes: 'Test') }
 
   describe '#new' do
     it 'returns http status 200' do
@@ -41,10 +42,16 @@ RSpec.describe PhotosController, type: :controller do
   end
 
   describe '#show' do
-    let(:photo) { Photo.create!(subject_id: subject.id, date: Date.today, image_url: 'http://www.test.com/test.jpg', notes: 'Test') }
-
-    it 'returns https status 200' do
+    it 'returns http status 200' do
       get :show, params: { id: photo.id }
+
+      expect(response.status).to eq 200
+    end
+  end
+
+  describe '#edit' do
+    it 'returns http status 200' do
+      get :edit, params: { id: photo.id }
 
       expect(response.status).to eq 200
     end

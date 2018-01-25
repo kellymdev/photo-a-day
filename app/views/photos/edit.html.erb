@@ -1,7 +1,7 @@
-<h2>Add New Photo</h2>
+<h2>Edit Photo</h2>
 
 <%= form_for @photo do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
 
-  <%= f.submit 'Add Photo' %>
+  <%= f.submit 'Update Photo' %>
 <% end %>
