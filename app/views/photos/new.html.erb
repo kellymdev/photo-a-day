@@ -1,0 +1,23 @@
+<h2>Add New Photo</h2>
+
+<% form_for @photo do |f| %>
+  <%= f.label :subject %>
+  <%= f.collection_select(:subject, @subjects, :id, :name) %>
+
+  <%= f.label :day %>
+  <%= f.select(:day, 1..31) %>
+
+  <%= f.label :month %>
+  <%= f.select(:month, 1..12) %>
+
+  <%= f.label :year %>
+  <%= f.select(:year, ['2017', '2018', '2019']) %>
+
+  <%= f.label :image_url %>
+  <%= f.text_field :image_url %>
+
+  <%= f.label :notes %>
+  <%= f.text_area :notes %>
+
+  <% f.submit 'Add Photo' %>
+<% end %>
