@@ -1,0 +1,5 @@
+<%= f.label :category %>
+<%= f.collection_select(:category_id, @categories, :id, :name) %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
