@@ -1,0 +1,9 @@
+<h2><%= @category.name %></h2>
+
+<ul>
+  <% @category.subjects.each do |subject| %>
+    <li><%= link_to(subject.name, subject_path(subject)) %></li>
+  <% end %>
+</ul>
+
+<p><%= link_to('Back to Category List', categories_path) %></p>

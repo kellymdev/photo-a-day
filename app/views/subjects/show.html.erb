@@ -1,5 +1,5 @@
 <h2><%= @subject.name %></h2>
-<p>Category: <%= @subject.category.name %></p>
+<p>Category: <%= link_to(@subject.category.name, category_path(@subject.category)) %></p>
 
 <% if @subject.photos.any? %>
   <h3>Photos:</h3>
