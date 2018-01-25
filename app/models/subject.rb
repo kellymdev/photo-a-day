@@ -6,5 +6,6 @@ class Subject < ApplicationRecord
 
   validates :name,
     presence: true,
-    length: { minimum: 2 }
+    length: { minimum: 2 },
+    uniqueness: true
 end

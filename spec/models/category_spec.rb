@@ -28,5 +28,14 @@ RSpec.describe Category, type: :model do
         expect(category).not_to be_valid
       end
     end
+
+    context 'when the name already exists' do
+      let(:name) { 'Macro' }
+      let!(:existing_category) { Category.create!(name: name) }
+
+      it 'is invalid' do
+        expect(category).not_to be_valid
+      end
+    end
   end
 end
