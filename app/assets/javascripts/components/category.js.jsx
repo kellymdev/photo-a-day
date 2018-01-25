@@ -7,8 +7,7 @@ var Category = createReactClass({
   render: function() {
     return (
       <div>
-        <div>Id: {this.props.id}</div>
-        <div>Name: {this.props.name}</div>
+        <div id={this.props.id}>{this.props.name}</div>
       </div>
     );
   }

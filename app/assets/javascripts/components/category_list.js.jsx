@@ -3,11 +3,11 @@ var CategoryList = createReactClass({
     categories: PropTypes.array
   },
 
-  renderCategory(i) {
+  renderCategory(id, name) {
     return (
       <Category
-        id={this.props.categories[i].id}
-        name={this.props.categories[i].name}
+        id={id}
+        name={name}
       />
     );
   },
@@ -15,7 +15,11 @@ var CategoryList = createReactClass({
   render: function() {
     return (
       <div>
-        {this.renderCategory(0)}
+        <ul>
+          {this.props.categories.map(function(category, index) {
+            return <li key={index} id={category.id}>{category.name}</li>;
+          })}
+        </ul>
       </div>
     );
   }
