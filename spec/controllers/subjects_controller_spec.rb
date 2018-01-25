@@ -4,7 +4,7 @@ RSpec.describe SubjectsController, type: :controller do
   render_views
 
   let(:category) { Category.create!(name: 'Macro') }
-  let(:subject) { category.subjects.create!(name: 'Bee') }
+  let!(:subject) { category.subjects.create!(name: 'Bee') }
   let(:valid_params) { { subject: { category_id: category.id, name: 'Ant' } } }
   let(:invalid_params) { { subject: { category_id: category.id, name: '' } } }
 
@@ -60,6 +60,22 @@ RSpec.describe SubjectsController, type: :controller do
         put :update, params: { id: subject.id }.merge(invalid_params)
 
         expect(subject.name).to eq 'Bee'
+      end
+    end
+  end
+
+  describe '#destroy' do
+    context 'when the subject does not have any photos' do
+      it 'deletes the subject' do
+        expect { delete :destroy, params: { id: subject.id } }.to change { Subject.count }.by -1
+      end
+    end
+
+    context 'when the subject has a photo' do
+      let!(:photo) { subject.photos.create!(date: Date.today, notes: 'Test') }
+
+      it 'does not delete the subject' do
+        expect { delete :destroy, params: { id: subject.id } }.to change { Subject.count }.by 0
       end
     end
   end

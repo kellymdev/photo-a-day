@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SubjectsController < ApplicationController
-  before_action :find_subject, only: [:show, :edit, :update]
+  before_action :find_subject, only: [:show, :edit, :update, :destroy]
   before_action :list_categories, only: [:new, :edit]
 
   def new
@@ -31,6 +31,17 @@ class SubjectsController < ApplicationController
     else
       list_categories
       render :edit
+    end
+  end
+
+  def destroy
+    if @subject.photos.any?
+      redirect_to @subject
+    else
+      category = @subject.category
+      @subject.destroy!
+
+      redirect_to category_path(category)
     end
   end
 
