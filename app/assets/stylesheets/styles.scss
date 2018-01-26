@@ -1,0 +1,25 @@
+// Fonts
+$heading-font: 'Raleway', sans-serif;
+$main-font: 'Open Sans', sans-serif;
+
+// Colours
+$dark-grey: #737373;
+$cream: #F2EDE4;
+$light-pink: #F2CDC4;
+$medium-pink: #BF988F;
+$light-grey: #C4C9CF;
+
+body {
+  font-family: $main-font;
+  background: $cream;
+  color: $dark-grey;
+}
+
+h1, h2 {
+  font-family: $heading-font;
+}
+
+.error {
+  color: $medium-pink;
+}
+
