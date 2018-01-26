@@ -1,5 +1,7 @@
 <h2>Edit Photo</h2>
 
+<%= render partial: 'subjects/display_errors', locals: { object: @photo } %>
+
 <%= form_for([@subject, @photo]) do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
 

@@ -1,4 +1,5 @@
-<p><%= link_to(@photo.subject.category.name, category_path(@photo.subject.category)) %> | <%= link_to(@photo.subject.name, subject_path(@photo.subject)) %></p>
+<p>Category: <%= link_to(@photo.subject.category.name, category_path(@photo.subject.category)) %></p>
+<p>Subject: <%= link_to(@photo.subject.name, subject_path(@photo.subject)) %></p>
 
 <p>Date taken: <%= @photo.date %></p>
 

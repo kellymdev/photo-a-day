@@ -1,5 +1,7 @@
 <h2>Edit Subject</h2>
 
+<%= render partial: 'display_errors', locals: { object: @subject } %>
+
 <%= form_for @subject do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
 
