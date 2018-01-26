@@ -1,5 +1,9 @@
 <h2><%= @subject.name %></h2>
+
 <p>Category: <%= link_to(@subject.category.name, category_path(@subject.category)) %></p>
+
+<p><span class="button"><%= link_to('Edit Subject', edit_subject_path(@subject)) %></span>
+<span class="button"><%= link_to('Delete Subject', subject_path(@subject), data: { confirm: 'Are you sure?' }, method: :delete) %></span></p>
 
 <% if @subject.photos.any? %>
   <h3>Photos:</h3>
@@ -19,7 +23,4 @@
   <% end %>
 <% end %>
 
-<p><%= link_to('Add Photo', new_subject_photo_path(@subject)) %></p>
-
-<p><%= link_to('Edit Subject', edit_subject_path(@subject)) %> |
-<%= link_to('Delete Subject', subject_path(@subject), data: { confirm: 'Are you sure?' }, method: :delete) %></p>
+<p class="button"><%= link_to('Add Photo', new_subject_photo_path(@subject)) %></p>

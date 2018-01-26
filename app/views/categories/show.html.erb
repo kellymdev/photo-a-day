@@ -1,11 +1,11 @@
 <h2><%= @category.name %></h2>
 
-<ul>
+<ul class="subject-list">
   <% @category.subjects.each do |subject| %>
     <li><%= link_to(subject.name, subject_path(subject)) %></li>
   <% end %>
 </ul>
 
-<p><%= link_to('Add a Subject', new_subject_path) %></p>
+<p class="button"><%= link_to('Add a Subject', new_subject_path) %></p>
 
-<p><%= link_to('Back to Category List', categories_path) %></p>
+<p class="button"><%= link_to('Back to Category List', categories_path) %></p>

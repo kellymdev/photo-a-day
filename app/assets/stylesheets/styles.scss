@@ -19,7 +19,39 @@ h1, h2 {
   font-family: $heading-font;
 }
 
+a {
+  color: $medium-pink;
+}
+
+a:hover {
+  color: $light-grey;
+}
+
 .error {
   color: $medium-pink;
 }
 
+.category-list,
+.subject-list {
+  padding: 0;
+  list-style: none;
+
+  li a {
+    text-decoration: none;
+    color: $dark-grey;
+  }
+}
+
+.button {
+  a {
+    text-decoration: none;
+    background: $dark-grey;
+    color: $cream;
+    padding: 5px 10px;
+    font-size: 0.8em;
+  }
+
+  a:hover {
+    background: $light-grey;
+  }
+}
