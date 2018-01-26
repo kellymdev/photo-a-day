@@ -77,6 +77,12 @@ RSpec.describe SubjectsController, type: :controller do
       it 'does not delete the subject' do
         expect { delete :destroy, params: { id: subject.id } }.to change { Subject.count }.by 0
       end
+
+      it 'displays a flash error' do
+        delete :destroy, params: { id: subject.id }
+
+        expect(flash[:error]).to eq "Can't delete a subject that has photos"
+      end
     end
   end
 end

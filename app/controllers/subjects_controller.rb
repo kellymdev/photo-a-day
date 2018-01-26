@@ -36,6 +36,8 @@ class SubjectsController < ApplicationController
 
   def destroy
     if @subject.photos.any?
+
+      flash[:error] = "Can't delete a subject that has photos"
       redirect_to @subject
     else
       category = @subject.category
