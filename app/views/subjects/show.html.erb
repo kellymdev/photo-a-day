@@ -6,7 +6,7 @@
 
   <% @subject.photos.each do |photo| %>
     <p>
-      <%= link_to(photo.date, photo_path(photo)) %>
+      <%= link_to(photo.date, subject_photo_path(@subject, photo)) %>
 
       <% if photo.notes.present? %>
          - <%= photo.notes %>

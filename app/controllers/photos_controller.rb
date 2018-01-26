@@ -2,19 +2,18 @@
 
 class PhotosController < ApplicationController
   before_action :find_photo, only: [:show, :edit, :update, :destroy]
-  before_action :list_subjects, only: [:new, :edit]
+  before_action :find_subject
 
   def new
     @photo = Photo.new
   end
 
   def create
-    @photo = Photo.new(photo_params)
+    @photo = @subject.photos.new(photo_params)
 
     if @photo.save
-      redirect_to @photo
+      redirect_to subject_photo_path(@subject, @photo)
     else
-      list_subjects
       render :new
     end
   end
@@ -27,9 +26,8 @@ class PhotosController < ApplicationController
 
   def update
     if @photo.update(photo_params)
-      redirect_to @photo
+      redirect_to subject_photo_path(@subject, @photo)
     else
-      list_subjects
       render :edit, id: @photo.id
     end
   end
@@ -45,14 +43,14 @@ class PhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:photo).permit(:subject_id, :date, :image_url, :notes)
+    params.require(:photo).permit(:date, :image_url, :notes)
   end
 
   def find_photo
     @photo = Photo.find(params[:id])
   end
 
-  def list_subjects
-    @subjects = Subject.all.order(:name)
+  def find_subject
+    @subject = Subject.find(params[:subject_id])
   end
 end
