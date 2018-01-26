@@ -19,5 +19,7 @@
   <% end %>
 <% end %>
 
-<p><%= link_to('Edit', edit_subject_path(@subject)) %> |
-<%= link_to('Delete', subject_path(@subject), data: { confirm: 'Are you sure?' }, method: :delete) %></p>
+<p><%= link_to('Add Photo', new_subject_photo_path(@subject)) %></p>
+
+<p><%= link_to('Edit Subject', edit_subject_path(@subject)) %> |
+<%= link_to('Delete Subject', subject_path(@subject), data: { confirm: 'Are you sure?' }, method: :delete) %></p>

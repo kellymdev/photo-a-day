@@ -1,6 +1,6 @@
 <h2>Edit Photo</h2>
 
-<%= form_for(@subject, @photo) do |f| %>
+<%= form_for([@subject, @photo]) do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
 
   <%= f.submit 'Update Photo' %>

@@ -1,6 +1,6 @@
-<h2>Add New Photo</h2>
+<h2>Add New '<%= @subject.name %>' Photo</h2>
 
-<%= form_for(@subject, @photo) do |f| %>
+<%= form_for([@subject, @photo]) do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
 
   <%= f.submit 'Add Photo' %>
