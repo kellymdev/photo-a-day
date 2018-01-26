@@ -2,7 +2,7 @@
 
 class Subject < ApplicationRecord
   belongs_to :category
-  has_many :photos
+  has_many :photos, dependent: :destroy
 
   validates :name,
     presence: true,
