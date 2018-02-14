@@ -5,6 +5,11 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all.order(:name)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @categories.as_json(except: [:created_at, :updated_at]) }
+    end
   end
 
   def show
