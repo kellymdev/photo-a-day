@@ -23,6 +23,13 @@ RSpec.describe CategoriesController, type: :controller do
     context 'with json format' do
       let!(:category2) { Category.create!(name: 'Landscape') }
 
+      let!(:expected_result) do
+        [
+          { id: 2, name: 'Landscape' },
+          { id: 1, name: 'Macro' }
+        ]
+      end
+
       it 'returns http status 200' do
         get :index, format: :json
 
@@ -32,7 +39,7 @@ RSpec.describe CategoriesController, type: :controller do
       it 'returns a list of categories as json' do
         get :index, format: :json
 
-        expect(response.body).to eq Category.all.order(:name).to_json(except: [:created_at, :updated_at])
+        expect(response.body).to eq expected_result.to_json
       end
     end
   end
