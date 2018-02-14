@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SubjectsController < ApplicationController
+  include JsonFormatter
+
   before_action :find_subject, only: [:show, :edit, :update, :destroy]
   before_action :list_categories, only: [:new, :edit]
 
@@ -23,11 +25,7 @@ class SubjectsController < ApplicationController
     respond_to do | format|
       format.html
       format.json do
-        render json: {
-          subject: @subject.as_json(except: [:created_at, :updated_at, :category_id]),
-          category: @subject.category.as_json(except: [:created_at, :updated_at]),
-          photos: @subject.photos.as_json(except: [:created_at, :updated_at, :subject_id])
-        }
+        render json: subject_details(@subject)
       end
     end
   end
