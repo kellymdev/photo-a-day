@@ -148,19 +148,74 @@ RSpec.describe SubjectsController, type: :controller do
   end
 
   describe '#update' do
-    context 'with valid params' do
-      it 'updates the subject' do
-        put :update, params: { id: subject.id }.merge(valid_params)
+    context 'with html format' do
+      context 'with valid params' do
+        it 'updates the subject' do
+          put :update, params: { id: subject.id }.merge(valid_params)
 
-        expect(subject.reload.name).to eq 'Ant'
+          expect(subject.reload.name).to eq 'Ant'
+        end
+      end
+
+      context 'with invalid params' do
+        it 'does not update the subject' do
+          put :update, params: { id: subject.id }.merge(invalid_params)
+
+          expect(subject.name).to eq 'Bee'
+        end
       end
     end
 
-    context 'with invalid params' do
-      it 'does not update the subject' do
-        put :update, params: { id: subject.id }.merge(invalid_params)
+    context 'with json format' do
+      context 'with valid params' do
+        let(:expected_result) do
+          {
+            subject: {
+              id: subject.id,
+              name: 'Ant'
+            },
+            category: {
+              id: category.id,
+              name: 'Macro'
+            },
+            photos: []
+          }
+        end
 
-        expect(subject.name).to eq 'Bee'
+        it 'updates the subject' do
+          put :update, params: { id: subject.id }.merge(valid_params), format: :json
+
+          expect(subject.reload.name).to eq 'Ant'
+        end
+
+        it 'returns details for the subject' do
+          put :update, params: { id: subject.id }.merge(valid_params), format: :json
+
+          expect(response.body).to eq expected_result.to_json
+        end
+      end
+
+      context 'with invalid params' do
+        let(:expected_result) do
+          {
+            errors:
+              {
+                name: ["can't be blank", "is too short (minimum is 2 characters)"]
+              }
+          }
+        end
+
+        it 'does not update the subject' do
+          put :update, params: { id: subject.id }.merge(invalid_params), format: :json
+
+          expect(subject.name).to eq 'Bee'
+        end
+
+        it 'returns a list of errors' do
+          put :update, params: { id: subject.id }.merge(invalid_params), format: :json
+
+          expect(response.body).to eq expected_result.to_json
+        end
       end
     end
   end

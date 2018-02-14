@@ -44,10 +44,19 @@ class SubjectsController < ApplicationController
 
   def update
     if @subject.update(subject_params)
-      redirect_to @subject
+      respond_to do |format|
+        format.html { redirect_to @subject }
+        format.json { render json: subject_details(@subject) }
+      end
     else
-      list_categories
-      render :edit
+      respond_to do |format|
+        format.html do
+          list_categories
+          render :edit
+        end
+
+        format.json { render json: error_details(@subject) }
+      end
     end
   end
 
