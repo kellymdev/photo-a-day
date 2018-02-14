@@ -21,12 +21,12 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     context 'with json format' do
-      let!(:category2) { Category.create!(name: 'Landscape') }
+      let!(:category_2) { Category.create!(name: 'Landscape') }
 
       let!(:expected_result) do
         [
-          { id: 2, name: 'Landscape' },
-          { id: 1, name: 'Macro' }
+          { id: category_2.id, name: 'Landscape' },
+          { id: category.id, name: 'Macro' }
         ]
       end
 
@@ -45,8 +45,8 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe '#show' do
-    let!(:subject) { category.subjects.create!(name: 'Bee') }
-    let!(:subject2) { category.subjects.create!(name: 'Ant') }
+    let!(:subject_1) { category.subjects.create!(name: 'Bee') }
+    let!(:subject_2) { category.subjects.create!(name: 'Ant') }
 
     context 'with html format' do
       it 'returns http status 200' do
@@ -66,12 +66,12 @@ RSpec.describe CategoriesController, type: :controller do
       let(:expected_result) do
         {
           category: {
-            id: 1,
+            id: category.id,
             name: 'Macro'
           },
           subjects: [
-            { id: 2, name: 'Ant' },
-            { id: 1, name: 'Bee' }
+            { id: subject_2.id, name: 'Ant' },
+            { id: subject_1.id, name: 'Bee' }
           ]
         }
       end
