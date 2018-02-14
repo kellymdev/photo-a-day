@@ -13,6 +13,15 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          category: @category.as_json(except: [:created_at, :updated_at]),
+          subjects: @category.subjects.order(:name).as_json(except: [:created_at, :updated_at, :category_id])
+        }
+      end
+    end
   end
 
   private
