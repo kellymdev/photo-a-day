@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
+  include JsonFormatter
+
   before_action :find_category, only: [:show]
 
   def index
@@ -8,7 +10,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @categories.as_json(except: [:created_at, :updated_at]) }
+      format.json { render json: category_list(@categories) }
     end
   end
 
@@ -16,10 +18,7 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render json: {
-          category: @category.as_json(except: [:created_at, :updated_at]),
-          subjects: @category.subjects.order(:name).as_json(except: [:created_at, :updated_at, :category_id])
-        }
+        render json: category_details(@category)
       end
     end
   end
