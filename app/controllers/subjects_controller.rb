@@ -20,6 +20,16 @@ class SubjectsController < ApplicationController
   end
 
   def show
+    respond_to do | format|
+      format.html
+      format.json do
+        render json: {
+          subject: @subject.as_json(except: [:created_at, :updated_at, :category_id]),
+          category: @subject.category.as_json(except: [:created_at, :updated_at]),
+          photos: @subject.photos.as_json(except: [:created_at, :updated_at, :subject_id])
+        }
+      end
+    end
   end
 
   def edit

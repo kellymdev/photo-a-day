@@ -31,10 +31,61 @@ RSpec.describe SubjectsController, type: :controller do
   end
 
   describe '#show' do
-    it 'returns http status code 200' do
-      get :show, params: { id: subject.id }
+    context 'with html format' do
+      it 'returns http status code 200' do
+        get :show, params: { id: subject.id }
 
-      expect(response.status).to eq 200
+        expect(response.status).to eq 200
+      end
+
+      it 'renders the show template' do
+        get :show, params: { id: subject.id }
+
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'with json format' do
+      let!(:photo_1) { subject.photos.create!(date: Date.yesterday, image_url: 'http://www.test.com/flower.jpg', notes: 'Bee on a flower') }
+      let!(:photo_2) { subject.photos.create!(date: Date.today, image_url: 'http://www.test.com/leaf.jpg', notes: 'Bee on a leaf') }
+
+      let(:expected_result) do
+        {
+          subject: {
+            id: subject.id,
+            name: 'Bee'
+          },
+          category: {
+            id: category.id,
+            name: 'Macro'
+          },
+          photos: [
+            {
+              id: photo_1.id,
+              date: Date.yesterday,
+              image_url: 'http://www.test.com/flower.jpg',
+              notes: 'Bee on a flower'
+            },
+            {
+              id: photo_2.id,
+              date: Date.today,
+              image_url: 'http://www.test.com/leaf.jpg',
+              notes: 'Bee on a leaf'
+            }
+          ]
+        }
+      end
+
+      it 'returns http status code 200' do
+        get :show, params: { id: subject.id }, format: :json
+
+        expect(response.status).to eq 200
+      end
+
+      it 'returns the subject, category and photo details as json' do
+        get :show, params: { id: subject.id }, format: :json
+        expect(response.body).to eq expected_result.to_json
+      end
     end
   end
 
