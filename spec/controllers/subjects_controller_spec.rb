@@ -17,15 +17,65 @@ RSpec.describe SubjectsController, type: :controller do
   end
 
   describe '#create' do
-    context 'with valid params' do
-      it 'creates a subject' do
-        expect { post :create, params: valid_params }.to change { Subject.count}.by 1
+    context 'with html format' do
+      context 'with valid params' do
+        it 'creates a subject' do
+          expect { post :create, params: valid_params }.to change { Subject.count }.by 1
+        end
+      end
+
+      context 'with invalid params' do
+        it 'does not create a subject' do
+          expect { post :create, params: invalid_params }.to change { Subject.count }.by 0
+        end
       end
     end
 
-    context 'with invalid params' do
-      it 'does not create a subject' do
-        expect { post :create, params: invalid_params }.to change { Subject.count}.by 0
+    context 'with json format' do
+      context 'with valid params' do
+        let(:expected_result) do
+          {
+            subject: {
+              id: subject.id.succ, #it will use the next id
+              name: 'Ant'
+            },
+            category: {
+              id: category.id,
+              name: 'Macro'
+            },
+            photos: []
+          }
+        end
+
+        it 'creates a subject' do
+          expect { post :create, params: valid_params, format: :json }.to change { Subject.count }.by 1
+        end
+
+        it 'returns details for the subject' do
+          post :create, params: valid_params, format: :json
+
+          expect(response.body).to eq expected_result.to_json
+        end
+      end
+
+      context 'with invalid params' do
+        let(:expected_result) do
+          {
+            errors: {
+              name: ["can't be blank", "is too short (minimum is 2 characters)"]
+            }
+          }
+        end
+
+        it 'does not create a subject' do
+          expect { post :create, params: invalid_params, format: :json }.to change { Subject.count }.by 0
+        end
+
+        it 'returns a list of errors' do
+          post :create, params: invalid_params, format: :json
+
+          expect(response.body).to eq expected_result.to_json
+        end
       end
     end
   end

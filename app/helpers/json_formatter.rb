@@ -19,4 +19,10 @@ module JsonFormatter
       photos: subject.photos.as_json(except: [:created_at, :updated_at, :subject_id])
     }
   end
+
+  def error_details(subject)
+    {
+      errors: subject.errors
+    }
+  end
 end
