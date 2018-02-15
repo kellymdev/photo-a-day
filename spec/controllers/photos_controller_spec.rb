@@ -236,8 +236,29 @@ RSpec.describe PhotosController, type: :controller do
   end
 
   describe '#destroy' do
-    it 'deletes the photo' do
-      expect { delete :destroy, params: { subject_id: subject.id, id: photo.id } }.to change { Photo.count }.by -1
+    context 'with html format' do
+      it 'deletes the photo' do
+        expect { delete :destroy, params: { subject_id: subject.id, id: photo.id } }.to change { Photo.count }.by -1
+      end
+    end
+
+    context 'with json format' do
+      let(:expected_result) do
+        {
+          result: 'success',
+          message: 'Photo was successfully deleted'
+        }
+      end
+
+      it 'deletes the photo' do
+        expect { delete :destroy, params: { subject_id: subject.id, id: photo.id }, format: :json }.to change { Photo.count }.by -1
+      end
+
+      it 'returns a success message as json' do
+        delete :destroy, params: { subject_id: subject.id, id: photo.id }, format: :json
+
+        expect(response.body).to eq expected_result.to_json
+      end
     end
   end
 end

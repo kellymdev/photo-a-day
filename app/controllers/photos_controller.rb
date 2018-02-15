@@ -55,7 +55,10 @@ class PhotosController < ApplicationController
 
     @photo.destroy!
 
-    redirect_to subject_path(subject)
+    respond_to do |format|
+      format.html { redirect_to subject_path(subject) }
+      format.json { render json: successful_delete('Photo') }
+    end
   end
 
   private

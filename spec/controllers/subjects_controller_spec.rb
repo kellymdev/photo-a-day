@@ -247,7 +247,8 @@ RSpec.describe SubjectsController, type: :controller do
       context 'when the subject does not have any photos' do
         let(:expected_result) do
           {
-            success: 'Subject was successfully deleted'
+            result: 'success',
+            message: 'Subject was successfully deleted'
           }
         end
 

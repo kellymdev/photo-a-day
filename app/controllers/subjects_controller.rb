@@ -69,7 +69,7 @@ class SubjectsController < ApplicationController
           redirect_to @subject
         end
 
-        format.json { render json: unsuccessful_delete(@subject) }
+        format.json { render json: unsuccessful_delete_of_subject(@subject) }
       end
     else
       category = @subject.category
@@ -77,7 +77,7 @@ class SubjectsController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to category_path(category) }
-        format.json { render json: successful_delete }
+        format.json { render json: successful_delete('Subject') }
       end
     end
   end
