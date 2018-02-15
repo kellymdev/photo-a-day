@@ -267,7 +267,8 @@ RSpec.describe SubjectsController, type: :controller do
         let!(:photo) { subject.photos.create!(date: Date.today, notes: 'Test') }
         let(:expected_result) do
           {
-            error: 'Cannot delete a subject that has photos',
+            result: 'error',
+            message: 'Cannot delete a subject that has photos',
             subject: {
               id: subject.id,
               name: 'Bee',

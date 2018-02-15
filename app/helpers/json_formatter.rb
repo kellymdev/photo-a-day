@@ -43,7 +43,8 @@ module JsonFormatter
 
   def unsuccessful_delete_of_subject(subject)
     {
-      error: 'Cannot delete a subject that has photos',
+      result: 'error',
+      message: 'Cannot delete a subject that has photos',
       subject: subject.as_json(except: [:created_at, :updated_at])
     }
   end
