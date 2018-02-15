@@ -14,9 +14,15 @@ class PhotosController < ApplicationController
     @photo = @subject.photos.new(photo_params)
 
     if @photo.save
-      redirect_to subject_photo_path(@subject, @photo)
+      respond_to do |format|
+        format.html { redirect_to subject_photo_path(@subject, @photo) }
+        format.json { render json: photo_details(@photo) }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: error_details(@photo) }
+      end
     end
   end
 
