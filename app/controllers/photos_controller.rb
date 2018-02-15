@@ -38,9 +38,15 @@ class PhotosController < ApplicationController
 
   def update
     if @photo.update(photo_params)
-      redirect_to subject_photo_path(@subject, @photo)
+      respond_to do |format|
+        format.html { redirect_to subject_photo_path(@subject, @photo) }
+        format.json { render json: photo_details(@photo) }
+      end
     else
-      render :edit, id: @photo.id
+      respond_to do |format|
+        format.html { render :edit, id: @photo.id }
+        format.json { render json: error_details(@photo) }
+      end
     end
   end
 

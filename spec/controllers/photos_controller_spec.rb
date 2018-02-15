@@ -66,23 +66,25 @@ RSpec.describe PhotosController, type: :controller do
       end
 
       context 'with invalid params' do
-        let(:date) { }
-        let(:expected_result) do
-          {
-            errors: {
-              date: ["can't be blank"]
+        context 'without a date' do
+          let(:date) { }
+          let(:expected_result) do
+            {
+              errors: {
+                date: ["can't be blank"]
+              }
             }
-          }
-        end
+          end
 
-        it 'does not create a photo' do
-          expect { post :create, params: photo_params, format: :json }.to change { Photo.count }.by 0
-        end
+          it 'does not create a photo' do
+            expect { post :create, params: photo_params, format: :json }.to change { Photo.count }.by 0
+          end
 
-        it 'returns a list of errors' do
-          post :create, params: photo_params, format: :json
+          it 'returns a list of errors' do
+            post :create, params: photo_params, format: :json
 
-          expect(response.body).to eq expected_result.to_json
+            expect(response.body).to eq expected_result.to_json
+          end
         end
       end
     end
@@ -150,22 +152,84 @@ RSpec.describe PhotosController, type: :controller do
     let(:image_url) { 'http://www.test.com/updated.jpg' }
     let(:photo_params) { { photo: { date: date, image_url: image_url, notes: 'Test' } } }
 
-    context 'with valid params' do
-      it 'updates the photo' do
-        put :update, params: { subject_id: subject.id, id: photo.id }.merge(photo_params)
+    context 'with html format' do
+      context 'with valid params' do
+        it 'updates the photo' do
+          put :update, params: { subject_id: subject.id, id: photo.id }.merge(photo_params)
 
-        expect(photo.reload.image_url).to eq image_url
+          expect(photo.reload.image_url).to eq image_url
+        end
+      end
+
+      context 'with invalid params' do
+        context 'without a date' do
+          let(:date) { }
+
+          it 'does not update the photo' do
+            put :update, params: { subject_id: subject.id, id: photo.id }.merge(photo_params)
+
+            expect(photo.reload.date).to eq Date.yesterday
+          end
+        end
       end
     end
 
-    context 'with invalid params' do
-      context 'without a date' do
-        let(:date) { }
+    context 'with json format' do
+      context 'with valid params' do
+        let(:expected_result) do
+          {
+            photo: {
+              id: photo.id,
+              date: date,
+              image_url: image_url,
+              notes: 'Test'
+            },
+            category: {
+              id: category.id,
+              name: 'Macro'
+            },
+            subject: {
+              id: subject.id,
+              name: 'Ant'
+            }
+          }
+        end
 
-        it 'does not update the photo' do
-          put :update, params: { subject_id: subject.id, id: photo.id }.merge(photo_params)
+        it 'updates the photo' do
+          put :update, params: { subject_id: subject.id, id: photo.id }.merge(photo_params), format: :json
 
-          expect(photo.reload.date).to eq Date.yesterday
+          expect(photo.reload.image_url).to eq image_url
+        end
+
+        it 'returns details for the photo' do
+          put :update, params: { subject_id: subject.id, id: photo.id }.merge(photo_params), format: :json
+
+          expect(response.body).to eq expected_result.to_json
+        end
+      end
+
+      context 'with invalid params' do
+        context 'without a date' do
+          let(:date) { }
+          let(:expected_result) do
+            {
+              errors: {
+                date: ["can't be blank"]
+              }
+            }
+          end
+
+          it 'does not update the photo' do
+            put :update, params: { subject_id: subject.id, id: photo.id }.merge(photo_params), format: :json
+
+            expect(photo.reload.date).to eq Date.yesterday
+          end
+
+          it 'returns a list of errors' do
+            put :update, params: { subject_id: subject.id, id: photo.id }.merge(photo_params), format: :json
+
+            expect(response.body).to eq expected_result.to_json
+          end
         end
       end
     end
