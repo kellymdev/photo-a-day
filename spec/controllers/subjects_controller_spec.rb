@@ -221,23 +221,69 @@ RSpec.describe SubjectsController, type: :controller do
   end
 
   describe '#destroy' do
-    context 'when the subject does not have any photos' do
-      it 'deletes the subject' do
-        expect { delete :destroy, params: { id: subject.id } }.to change { Subject.count }.by -1
+    context 'with html format' do
+      context 'when the subject does not have any photos' do
+        it 'deletes the subject' do
+          expect { delete :destroy, params: { id: subject.id } }.to change { Subject.count }.by -1
+        end
+      end
+
+      context 'when the subject has a photo' do
+        let!(:photo) { subject.photos.create!(date: Date.today, notes: 'Test') }
+
+        it 'does not delete the subject' do
+          expect { delete :destroy, params: { id: subject.id } }.to change { Subject.count }.by 0
+        end
+
+        it 'displays a flash error' do
+          delete :destroy, params: { id: subject.id }
+
+          expect(flash[:error]).to eq "Can't delete a subject that has photos"
+        end
       end
     end
 
-    context 'when the subject has a photo' do
-      let!(:photo) { subject.photos.create!(date: Date.today, notes: 'Test') }
+    context 'with json format' do
+      context 'when the subject does not have any photos' do
+        let(:expected_result) do
+          {
+            success: 'Subject was successfully deleted'
+          }
+        end
 
-      it 'does not delete the subject' do
-        expect { delete :destroy, params: { id: subject.id } }.to change { Subject.count }.by 0
+        it 'deletes the subject' do
+          expect { delete :destroy, params: { id: subject.id }, format: :json }.to change { Subject.count }.by -1
+        end
+
+        it 'returns a success message as json' do
+          delete :destroy, params: { id: subject.id }, format: :json
+
+          expect(response.body).to eq expected_result.to_json
+        end
       end
 
-      it 'displays a flash error' do
-        delete :destroy, params: { id: subject.id }
+      context 'when the subject has a photo' do
+        let!(:photo) { subject.photos.create!(date: Date.today, notes: 'Test') }
+        let(:expected_result) do
+          {
+            error: 'Cannot delete a subject that has photos',
+            subject: {
+              id: subject.id,
+              name: 'Bee',
+              category_id: category.id
+            }
+          }
+        end
 
-        expect(flash[:error]).to eq "Can't delete a subject that has photos"
+        it 'does not delete the subject' do
+          expect { delete :destroy, params: { id: subject.id }, format: :json }.to change { Subject.count }.by 0
+        end
+
+        it 'returns an error message as json' do
+          delete :destroy, params: { id: subject.id }, format: :json
+
+          expect(response.body).to eq expected_result.to_json
+        end
       end
     end
   end

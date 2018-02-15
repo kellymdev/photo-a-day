@@ -63,13 +63,22 @@ class SubjectsController < ApplicationController
   def destroy
     if @subject.photos.any?
 
-      flash[:error] = "Can't delete a subject that has photos"
-      redirect_to @subject
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Can't delete a subject that has photos"
+          redirect_to @subject
+        end
+
+        format.json { render json: unsuccessful_delete(@subject) }
+      end
     else
       category = @subject.category
       @subject.destroy!
 
-      redirect_to category_path(category)
+      respond_to do |format|
+        format.html { redirect_to category_path(category) }
+        format.json { render json: successful_delete }
+      end
     end
   end
 
