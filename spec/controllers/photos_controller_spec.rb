@@ -33,10 +33,51 @@ RSpec.describe PhotosController, type: :controller do
   end
 
   describe '#show' do
-    it 'returns http status 200' do
-      get :show, params: { subject_id: subject.id, id: photo.id }
+    context 'with html format' do
+      it 'returns http status 200' do
+        get :show, params: { subject_id: subject.id, id: photo.id }
 
-      expect(response.status).to eq 200
+        expect(response.status).to eq 200
+      end
+
+      it 'renders the show template' do
+        get :show, params: { subject_id: subject.id, id: photo.id }
+
+        expect(response).to render_template :show
+      end
+    end
+
+    context 'with json format' do
+      let(:expected_result) do
+        {
+          photo: {
+            id: photo.id,
+            date: Date.yesterday,
+            image_url: 'http://www.test.com/test.jpg',
+            notes: 'Test'
+          },
+          category: {
+            id: category.id,
+            name: 'Macro'
+          },
+          subject: {
+            id: subject.id,
+            name: 'Ant'
+          }
+        }
+      end
+
+      it 'returns http status 200' do
+        get :show, params: { subject_id: subject.id, id: photo.id }, format: :json
+
+        expect(response.status).to eq 200
+      end
+
+      it 'returns the photo details as json' do
+        get :show, params: { subject_id: subject.id, id: photo.id }, format: :json
+
+        expect(response.body).to eq expected_result.to_json
+      end
     end
   end
 

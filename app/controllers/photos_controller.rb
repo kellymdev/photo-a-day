@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PhotosController < ApplicationController
+  include JsonFormatter
+
   before_action :find_photo, only: [:show, :edit, :update, :destroy]
   before_action :find_subject
 
@@ -19,6 +21,10 @@ class PhotosController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: photo_details(@photo) }
+    end
   end
 
   def edit
