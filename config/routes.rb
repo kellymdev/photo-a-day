@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  root 'categories#index'
-
   get 'home', to: 'pages#index', as: 'home_path'
 
   resources :categories
