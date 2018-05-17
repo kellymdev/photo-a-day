@@ -58,13 +58,13 @@ class App extends Component {
             </ul>
         </div>
 
-        { this.state.selectedCategory !== null ? (
+        {this.state.selectedCategory !== null ? (
           <div className="category-detail">
             <CategoryDetail category={this.state.selectedCategory} />
           </div>
         ) : (
           <div></div>
-        ) }
+        )}
       </div>
     );
   }
