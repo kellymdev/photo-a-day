@@ -10,6 +10,7 @@ class App extends Component {
                   selectedCategory: null};
     this.getCategories = this.getCategories.bind(this);
     this.getCategory = this.getCategory.bind(this);
+    this.getSubject = this.getSubject.bind(this);
   }
 
   componentDidMount() {
@@ -40,7 +41,15 @@ class App extends Component {
 
   getCategory = (id) => {
     this.api_call('/categories/' + id + '.json')
-      .then(category => this.setState({selectedCategory: category}))
+      .then(category => {
+        this.setState({selectedCategory: category})
+        this.getSubject(category.subjects[0].id);
+      })
+  }
+
+  getSubject = (id) => {
+    this.api_call('/subjects/' + id + '.json')
+      .then(subject => this.setState({selectedSubject: subject}))
   }
 
   render() {
@@ -60,7 +69,7 @@ class App extends Component {
 
         {this.state.selectedCategory !== null ? (
           <div className="category-detail">
-            <CategoryDetail category={this.state.selectedCategory} />
+            <CategoryDetail category={this.state.selectedCategory} subject={this.state.selectedSubject} />
           </div>
         ) : (
           <div></div>
