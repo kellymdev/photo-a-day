@@ -50,10 +50,12 @@ class App extends Component {
           <h1 className="App-title">Photo A Day</h1>
         </header>
 
-        <div className="category-menu">
-          {this.state.categories.map(category =>
-            <Category category={category} key={category.id} onClick={this.getCategory} />
-          )}
+        <div>
+          <ul className="category-menu">
+            {this.state.categories.map(category =>
+              <Category category={category} key={category.id} onClick={this.getCategory} />
+            )}
+            </ul>
         </div>
 
         { this.state.selectedCategory !== null ? (

@@ -6,7 +6,7 @@ class Category extends Component {
   }
 
   render() {
-    return <p className="category-name" onClick={this.handleClick}>{this.props.category.name}</p>
+    return <li className="category-name" onClick={this.handleClick}>{this.props.category.name}</li>
   }
 }
 
