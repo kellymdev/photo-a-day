@@ -7,7 +7,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {categories: [],
-                  selectedCategory: null};
+                  selectedCategory: null,
+                  selectedSubject: null};
     this.getCategories = this.getCategories.bind(this);
     this.getCategory = this.getCategory.bind(this);
     this.getSubject = this.getSubject.bind(this);
@@ -69,7 +70,7 @@ class App extends Component {
 
         {this.state.selectedCategory !== null ? (
           <div className="category-detail">
-            <CategoryDetail category={this.state.selectedCategory} subject={this.state.selectedSubject} />
+            <CategoryDetail category={this.state.selectedCategory} subject={this.state.selectedSubject} onClick={this.getSubject} />
           </div>
         ) : (
           <div></div>
