@@ -6,10 +6,11 @@ class Subject extends Component {
   }
 
   render() {
+    let classes = 'subject-name';
+    classes += this.props.selected ? ' selected' : ''
+
     return (
-      <div>
-        <p className="subject-name" onClick={this.handleClick}>{this.props.subject.name}</p>
-      </div>
+      <li className={classes} onClick={this.handleClick}>{this.props.subject.name}</li>
     )
   }
 }

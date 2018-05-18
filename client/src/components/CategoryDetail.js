@@ -17,9 +17,13 @@ class CategoryDetail extends Component {
       <div>
         <h2 className="category-header">{this.props.category.category.name}</h2>
 
-        {this.props.category.subjects.map(subject =>
-          <Subject subject={subject} key={subject.id} onClick={this.handleClick} />
-        )}
+        <div className="subject-list">
+          <ul className="subject-menu">
+            {this.props.category.subjects.map(subject =>
+              <Subject subject={subject} key={subject.id} onClick={this.handleClick} selected={this.props.subject ? subject.id === this.props.subject.subject.id : false} />
+            )}
+          </ul>
+        </div>
 
         { this.props.subject ? (
           <div className="subject-detail">

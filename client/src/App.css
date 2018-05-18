@@ -18,7 +18,7 @@ body {
   font-size: large;
 }
 
-.category-menu {
+.category-menu, .subject-menu {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -29,6 +29,26 @@ body {
   padding: 20px;
 }
 
+.subject-menu li {
+  padding: 10px;
+}
+
+.subject-menu li.selected {
+  background-color: #222;
+  color: white;
+}
+
 .category-header {
   text-align: center;
+}
+
+.subject-list {
+  float: left;
+  width: 20%;
+}
+
+.subject-detail {
+  padding-left: 20px;
+  float: right;
+  width: 75%;
 }
