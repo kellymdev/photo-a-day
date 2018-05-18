@@ -52,3 +52,15 @@ body {
   float: right;
   width: 75%;
 }
+
+.photo-details {
+  border-bottom: 1px solid #222;
+}
+
+.photo-image img {
+  width: 300px;
+}
+
+.image-date {
+  font-weight: bold;
+}
