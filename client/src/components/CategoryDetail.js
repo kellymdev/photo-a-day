@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Subject from './Subject';
 import SubjectDetail from './SubjectDetail';
+import SubjectForm from './SubjectForm';
 
 class CategoryDetail extends Component {
   constructor() {
     super();
+    this.state = {showForm: false};
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -12,10 +14,22 @@ class CategoryDetail extends Component {
     this.props.onClick(id);
   }
 
+  displaySubjectForm = () => {
+    this.setState({showForm: true});
+  }
+
   render() {
     return (
       <div>
         <h2 className="category-header">{this.props.category.category.name}</h2>
+
+        <div className = "add-subject">
+          {this.state.showForm ? (
+            <SubjectForm categoryId={this.props.category.category.id} />
+          ) : (
+            <button className="add-subject-button" onClick={this.displaySubjectForm}>Add Subject</button>
+          )}
+        </div>
 
         <div className="subject-list">
           <ul className="subject-menu">

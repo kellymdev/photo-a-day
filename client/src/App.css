@@ -42,11 +42,14 @@ body {
   text-align: center;
 }
 
+/* left column */
 .subject-list {
   float: left;
   width: 20%;
 }
 
+/* right column */
+.add-subject,
 .subject-detail {
   padding-left: 20px;
   float: right;
