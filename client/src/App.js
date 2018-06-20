@@ -70,7 +70,7 @@ class App extends Component {
 
         {this.state.selectedCategory !== null ? (
           <div className="category-detail">
-            <CategoryDetail category={this.state.selectedCategory} subject={this.state.selectedSubject} onClick={this.getSubject} />
+            <CategoryDetail category={this.state.selectedCategory} subject={this.state.selectedSubject} onClick={this.getSubject} onSubmit={this.getCategory} />
           </div>
         ) : (
           <div></div>

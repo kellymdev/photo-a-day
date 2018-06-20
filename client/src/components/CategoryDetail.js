@@ -20,6 +20,7 @@ class CategoryDetail extends Component {
 
   hideSubjectForm = (subject) => {
     this.setState({showForm: false});
+    this.props.onSubmit(subject.category.id);
   }
 
   render() {
