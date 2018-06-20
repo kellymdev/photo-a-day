@@ -3,6 +3,8 @@
 class SubjectsController < ApplicationController
   include JsonFormatter
 
+  skip_before_action :verify_authenticity_token if :json_request?
+
   before_action :find_subject, only: [:show, :edit, :update, :destroy]
   before_action :list_categories, only: [:new, :edit]
 

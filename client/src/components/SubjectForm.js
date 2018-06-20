@@ -29,18 +29,18 @@ class SubjectForm extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log("handle submit fired")
     let data = {
                  subject: {
                    category_id: this.props.categoryId,
                    name: this.state.value
                }
     };
-    console.log(data);
 
     this.api_call("/subjects.json", data)
-      .then(subject => console.log(subject));
+      .then(subject => this.props.onSubmit(subject));
     event.preventDefault();
+
+    this.setState({value: ''});
   }
 
   render() {

@@ -18,6 +18,10 @@ class CategoryDetail extends Component {
     this.setState({showForm: true});
   }
 
+  hideSubjectForm = (subject) => {
+    this.setState({showForm: false});
+  }
+
   render() {
     return (
       <div>
@@ -25,7 +29,7 @@ class CategoryDetail extends Component {
 
         <div className = "add-subject">
           {this.state.showForm ? (
-            <SubjectForm categoryId={this.props.category.category.id} />
+            <SubjectForm categoryId={this.props.category.category.id} onSubmit={this.hideSubjectForm} />
           ) : (
             <button className="add-subject-button" onClick={this.displaySubjectForm}>Add Subject</button>
           )}

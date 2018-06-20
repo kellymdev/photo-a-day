@@ -43,7 +43,7 @@ class App extends Component {
   getCategory = (id) => {
     this.api_call('/categories/' + id + '.json')
       .then(category => {
-        this.setState({selectedCategory: category})
+        this.setState({selectedCategory: category});
         this.getSubject(category.subjects[0].id);
       })
   }
