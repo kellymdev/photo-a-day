@@ -46,7 +46,7 @@ class CategoryDetail extends Component {
 
         { this.props.subject ? (
           <div className="subject-detail">
-            <SubjectDetail subject={this.props.subject} />
+            <SubjectDetail subject={this.props.subject} onSubmit={this.props.onSubmit} />
           </div>
         ) : (
           <div></div>

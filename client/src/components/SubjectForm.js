@@ -33,8 +33,8 @@ class SubjectForm extends Component {
                  subject: {
                    category_id: this.props.categoryId,
                    name: this.state.value
-               }
-    };
+                 }
+               };
 
     this.api_call("/subjects.json", data)
       .then(subject => this.props.onSubmit(subject));
