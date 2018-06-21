@@ -95,7 +95,7 @@ class PhotoForm extends Component {
     let month = parseInt(dateArray[2], 10);
     let day = parseInt(dateArray[3], 10);
 
-    return this.validYear(year) && this.validMonth(month) && this.validDay(day, month);
+    return this.validYear(year) && this.validMonth(month) && this.validDay(day, month, year);
   }
 
   validYear = (year) => {
@@ -106,18 +106,34 @@ class PhotoForm extends Component {
     return month >= 1 && month <= 12;
   }
 
-  validDay = (day, month) => {
+  validDay = (day, month, year) => {
     if (day < 1) {
-      return false
+      return false;
     }
 
     if ([1, 3, 5, 7, 8, 10, 12].includes(month)) { // 31 days
-      return day <= 31
+      return day <= 31;
     } else if ([4, 6, 9, 11].includes(month)) { // 30 days
-      return day <= 30
+      return day <= 30;
     } else if (month === 2) { // 28 or 29 days
-      return day <= 29
+      if (this.leapYear(year)) {
+        return day <= 29;
+      } else {
+        return day <= 28;
+      }
     }
+  }
+
+  leapYear = (year) => {
+    if (this.divisibleBy(4, year) && !this.divisibleBy(100, year) && this.divisibleBy(400, year)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  divisibleBy = (divisor, number) => {
+    return number % divisor === 0;
   }
 
   render() {
