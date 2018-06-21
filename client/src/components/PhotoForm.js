@@ -44,10 +44,15 @@ class PhotoForm extends Component {
   }
 
   handleSubmit = (event) => {
-    let url = null
+    if (!this.state.date) {
+      this.setState({errors: 'Date is required'});
+      return false;
+    }
+
+    let url = null;
 
     if (this.state.imageUrl.size > 0) {
-      url = this.state.imageUrl
+      url = this.state.imageUrl;
     }
 
     let data = {
@@ -159,7 +164,7 @@ class PhotoForm extends Component {
             <input type="text" value={this.state.notes} onChange={this.handleNotesChange} />
           </label>
 
-          <input type="submit" value="Create Photo" />
+          <input type="submit" value="Create Photo" onMouseDown={this.validateDate} />
         </form>
       </div>
     )
