@@ -47,10 +47,8 @@ class SubjectForm extends Component {
     return(
       <div className="subject-form">
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
+          <label>Name: </label>
+          <input type="text" className="form-field" value={this.state.value} onChange={this.handleChange} />
 
           <input type="submit" value="Create Subject" />
         </form>

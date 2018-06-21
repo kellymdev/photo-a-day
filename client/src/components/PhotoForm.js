@@ -149,20 +149,14 @@ class PhotoForm extends Component {
             {this.state.errors}
           </div>
 
-          <label>
-            Date:
-            <input type="text" placeholder="YYYY-MM-DD" value={this.state.date} onChange={this.handleDateChange} onBlur={this.validateDate} />
-          </label>
+          <label>Date: </label>
+          <input type="text" className="form-field" placeholder="YYYY-MM-DD" value={this.state.date} onChange={this.handleDateChange} onBlur={this.validateDate} />
 
-          <label>
-            Image Url:
-            <input type="text" value={this.state.imageUrl} onChange={this.handleImageUrlChange} />
-          </label>
+          <label>Image Url: </label>
+          <input type="text" className="form-field" value={this.state.imageUrl} onChange={this.handleImageUrlChange} />
 
-          <label>
-            Notes:
-            <input type="text" value={this.state.notes} onChange={this.handleNotesChange} />
-          </label>
+          <label>Notes: </label>
+          <input type="text" className="form-field" value={this.state.notes} onChange={this.handleNotesChange} />
 
           <input type="submit" value="Create Photo" onMouseDown={this.validateDate} />
         </form>

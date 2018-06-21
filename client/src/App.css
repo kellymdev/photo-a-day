@@ -56,9 +56,14 @@ body {
   width: 75%;
 }
 
-.add-subject {
+.add-subject,
+.add-photo {
   padding-bottom: 20px;
   border-bottom: 1px solid #222;
+}
+
+.add-photo {
+  padding-top: 20px;
 }
 
 .photo-details {
@@ -71,4 +76,8 @@ body {
 
 .image-date {
   font-weight: bold;
+}
+
+.form-field {
+  margin-right: 20px;
 }
