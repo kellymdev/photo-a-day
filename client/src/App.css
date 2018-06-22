@@ -56,8 +56,13 @@ body {
   width: 75%;
 }
 
+.add-subject {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #222;
+}
+
+.photo-panel,
 .edit-photo-form,
-.add-subject,
 .add-photo {
   padding-bottom: 20px;
   border-bottom: 1px solid #222;
@@ -65,10 +70,6 @@ body {
 
 .add-photo {
   padding-top: 20px;
-}
-
-.photo-details {
-  border-bottom: 1px solid #222;
 }
 
 .photo-image img {

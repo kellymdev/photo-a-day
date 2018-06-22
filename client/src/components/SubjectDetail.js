@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Photo from './Photo';
 import PhotoForm from './PhotoForm';
 import EditPhotoForm from './EditPhotoForm';
+import DeletePhoto from './DeletePhoto';
 
 class SubjectDetail extends Component {
   constructor() {
@@ -10,6 +11,7 @@ class SubjectDetail extends Component {
                   editingPhotoId: null};
     this.handlePhotoClick = this.handlePhotoClick.bind(this);
     this.handleEditPhotoSubmit = this.handleEditPhotoSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   displayPhotoForm = () => {
@@ -30,6 +32,10 @@ class SubjectDetail extends Component {
     this.props.onSubmit(photo.category.id);
   }
 
+  handleDelete = (categoryId) => {
+    this.props.onSubmit(categoryId);
+  }
+
   render() {
     return (
       <div>
@@ -42,11 +48,14 @@ class SubjectDetail extends Component {
         </div>
 
         <div className="photos">
-          {this.props.subject.photos.map(photo =>
+          {this.props.subject.photos.map((photo, index) =>
             this.state.editingPhotoId === photo.id ? (
               <EditPhotoForm date={photo.date} imageUrl={photo.image_url} notes={photo.notes} subjectId={this.props.subject.subject.id} photoId={photo.id} key={photo.id} onSubmit={this.handleEditPhotoSubmit} />
             ) : (
-              <Photo photo={photo} subjectName={this.props.subject.subject.name} key={photo.id} onClick={this.handlePhotoClick} />
+              <div className="photo-panel" key={photo.id}>
+                <Photo photo={photo} subjectName={this.props.subject.subject.name} onClick={this.handlePhotoClick} />
+                <DeletePhoto photoId={photo.id} subjectId={this.props.subject.subject.id} onClick={this.handleDelete} />
+              </div>
             )
           )}
         </div>

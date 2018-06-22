@@ -246,7 +246,9 @@ RSpec.describe PhotosController, type: :controller do
       let(:expected_result) do
         {
           result: 'success',
-          message: 'Photo was successfully deleted'
+          message: 'Photo was successfully deleted',
+          category_id: category.id,
+          subject_id: subject.id
         }
       end
 

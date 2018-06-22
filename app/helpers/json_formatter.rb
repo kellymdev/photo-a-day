@@ -41,6 +41,13 @@ module JsonFormatter
     }
   end
 
+  def successful_delete_of_photo(subject)
+    successful_delete('Photo').merge(
+      category_id: subject.category.id,
+      subject_id: subject.id
+    )
+  end
+
   def unsuccessful_delete_of_subject(subject)
     {
       result: 'error',

@@ -59,7 +59,7 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to subject_path(subject) }
-      format.json { render json: successful_delete('Photo') }
+      format.json { render json: successful_delete_of_photo(subject) }
     end
   end
 
