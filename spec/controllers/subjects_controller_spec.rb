@@ -111,16 +111,16 @@ RSpec.describe SubjectsController, type: :controller do
           },
           photos: [
             {
-              id: photo_1.id,
-              date: Date.yesterday,
-              image_url: 'http://www.test.com/flower.jpg',
-              notes: 'Bee on a flower'
-            },
-            {
               id: photo_2.id,
               date: Date.today,
               image_url: 'http://www.test.com/leaf.jpg',
               notes: 'Bee on a leaf'
+            },
+            {
+              id: photo_1.id,
+              date: Date.yesterday,
+              image_url: 'http://www.test.com/flower.jpg',
+              notes: 'Bee on a flower'
             }
           ]
         }
