@@ -92,7 +92,7 @@ class PhotoForm extends Component {
     let dateRegex = /(\d{4})-(\d\d?)-(\d\d?)/;
     let dateArray = dateString.match(dateRegex);
 
-    if (!!dateArray) {
+    if (!dateArray) {
       return false;
     }
 
